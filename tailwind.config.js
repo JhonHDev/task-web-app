@@ -11,6 +11,9 @@ export default {
         scarlet: '#ff1f18',
         cobalt: '#0252bc',
       },
+      backgroundImage: {
+        heroImage: "url('/images/banner.jpg')",
+      },
     },
   },
   plugins: [],

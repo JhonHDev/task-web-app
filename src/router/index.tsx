@@ -5,11 +5,13 @@ import Login from '../modules/auth/pages/Login';
 import Register from '../modules/auth/pages/Register';
 import ForgotPassword from '../modules/auth/pages/ForgotPassword';
 import PageNotFound from '../shared/pages/PageNotFound';
-import Tasklist from '../modules/tasks/pages/TaskList';
 
 // Components that allows to validate of auth session
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+
+// Home Page
+import Home from '../modules/tasks/pages/Home';
 
 const router = createBrowserRouter([
   {
@@ -35,8 +37,8 @@ const router = createBrowserRouter([
     element: <PrivateRoute />,
     children: [
       {
-        path: '/',
-        element: <Tasklist />,
+        index: true,
+        element: <Home />,
       },
     ],
   },

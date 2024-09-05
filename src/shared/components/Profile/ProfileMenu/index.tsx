@@ -20,7 +20,7 @@ const ProfileMenu = ({ name }: Props) => {
   };
 
   return (
-    <div className="absolute top-12 lg:top-12 right-0 z-50 shadow-lg shadow-gray bg-white hiddendivide-y divide-gray-100 rounded-lg w-44">
+    <div className="absolute top-12 lg:top-12 right-0 z-10 shadow-lg shadow-gray bg-white hiddendivide-y divide-gray-100 rounded-lg w-44">
       <ul className="py-0 text-sm text-gray-700 rounded-lg overflow-hidden">
         <span className="w-full block px-4 py-3 ">Perfil de {name}</span>
 
