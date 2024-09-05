@@ -5,7 +5,7 @@ interface Props {
 
 const TaskModalButtons = ({ openCreateTaskModal, openFilterTasksModal }: Props) => {
   return (
-    <div className="w-full md:w-auto flex justify-end md:justify-start items-center gap-4">
+    <div className="w-full md:w-auto flex justify-start items-center gap-4">
       <button
         onClick={openCreateTaskModal}
         className="bg-blue-500 text-white border rounded-lg py-2 px-10 flex justify-center items-center gap-4"

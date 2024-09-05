@@ -7,4 +7,8 @@
     /* text-shadow: 1px 1px 6px #101010dc; */
     text-shadow: 1px 1px 3px #333;
   }
+
+  select.select-style {
+    padding: 11px;
+  }
 }

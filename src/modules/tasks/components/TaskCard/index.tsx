@@ -25,7 +25,7 @@ const TaskCard = ({ task }: Props) => {
     <>
       <article
         onClick={handleOpenModalToUpdateTask}
-        className="relative w-full h-[524px] md:max-w-[280px] md:h-[400px] lg:max-w-[280px] lg:min-h-[400px] shadow-md cursor-pointer"
+        className="relative w-full h-[524px] md:max-w-[280px] md:h-[400px] lg:max-w-[280px] lg:min-h-[400px] shadow-md cursor-pointer hover:scale-105 transition-all"
       >
         {task.image ? (
           <img

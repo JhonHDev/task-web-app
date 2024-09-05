@@ -1,12 +1,13 @@
 import { useDispatch } from 'react-redux';
 
 import { removeTask } from '../../slices/singleTaskSlice';
+import FormTask from './FormTask';
 
 interface Props {
   isModalOpen: boolean;
   closeModal: () => void;
-  openModal?: () => void;
   isToUpdate?: boolean;
+  openModal?: () => void;
 }
 
 const FormTaskModal = ({ isModalOpen, closeModal, isToUpdate }: Props) => {
@@ -31,7 +32,7 @@ const FormTaskModal = ({ isModalOpen, closeModal, isToUpdate }: Props) => {
 
       {/* Contenido del modal */}
       <div
-        className={`bg-white p-6 rounded-lg shadow-lg z-10 w-11/12 max-w-lg md:w-3/4 lg:w-1/2 transition-transform duration-300 ease-linear ${
+        className={`bg-white p-6 rounded-lg shadow-lg z-10 w-11/12 max-w-xl md:w-3/4 lg:w-1/2 transition-transform duration-300 ease-linear ${
           isModalOpen ? 'scale-100' : 'scale-95'
         }`}
       >
@@ -42,7 +43,7 @@ const FormTaskModal = ({ isModalOpen, closeModal, isToUpdate }: Props) => {
 
         {/* Contenido del modal */}
         <div className="mt-4 min-h-[30vh]">
-          <h2>{isToUpdate ? 'Actualizar tarea' : 'Crear tarea'}</h2>
+          <FormTask isToUpdate={isToUpdate || false} />
         </div>
       </div>
     </div>

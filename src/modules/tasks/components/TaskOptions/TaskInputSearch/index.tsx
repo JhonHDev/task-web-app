@@ -1,5 +1,3 @@
-import React from 'react';
-
 const TaskInputSearch = () => {
   return (
     <div className="w-full  max-w-screen-sm">
