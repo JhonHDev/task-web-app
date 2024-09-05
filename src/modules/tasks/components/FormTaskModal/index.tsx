@@ -1,9 +1,22 @@
+import { useDispatch } from 'react-redux';
+
+import { removeTask } from '../../slices/singleTaskSlice';
+
 interface Props {
   isModalOpen: boolean;
-  toggleModalOpen: () => void;
+  closeModal: () => void;
+  openModal?: () => void;
+  isToUpdate?: boolean;
 }
 
-const CreateTaskModal = ({ isModalOpen, toggleModalOpen }: Props) => {
+const FormTaskModal = ({ isModalOpen, closeModal, isToUpdate }: Props) => {
+  const dispatch = useDispatch();
+
+  const handleCloseModal = () => {
+    closeModal();
+    dispatch(removeTask());
+  };
+
   return (
     <div
       className={`fixed z-50 inset-0 flex items-center justify-center transition-opacity duration-600 ease-linear ${
@@ -13,7 +26,7 @@ const CreateTaskModal = ({ isModalOpen, toggleModalOpen }: Props) => {
       {/* Fondo oscuro */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 ${isModalOpen ? 'opacity-100' : 'opacity-0'}`}
-        onClick={toggleModalOpen}
+        onClick={handleCloseModal}
       ></div>
 
       {/* Contenido del modal */}
@@ -23,17 +36,17 @@ const CreateTaskModal = ({ isModalOpen, toggleModalOpen }: Props) => {
         }`}
       >
         {/* Botón de cierre */}
-        <button onClick={toggleModalOpen} type="button" className="text-gray-500 hover:text-gray-700 float-right">
+        <button onClick={handleCloseModal} type="button" className="text-gray-500 hover:text-gray-700 float-right">
           &times;
         </button>
 
         {/* Contenido del modal */}
         <div className="mt-4 min-h-[30vh]">
-          <h2>Crear tarea</h2>
+          <h2>{isToUpdate ? 'Actualizar tarea' : 'Crear tarea'}</h2>
         </div>
       </div>
     </div>
   );
 };
 
-export default CreateTaskModal;
+export default FormTaskModal;

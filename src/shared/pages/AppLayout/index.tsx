@@ -10,7 +10,7 @@ const AppLayout = ({ children }: Props) => {
     <>
       <AppHeader />
 
-      <main className="w-full min-h-[78vh] sm:max-w-[85%] lg:max-w-[90%] xl:max-w-[70%] m-auto px-4 md:px-10 py-6 lg:py-3 mt-24 animate__animated animate__fadeIn">
+      <main className="w-full min-h-[78vh] sm:max-w-[85%] lg:max-w-[90%] xl:max-w-[70%] m-auto px-4 md:px-10 py-6 lg:py-3 mt-20 lg:mt-0 animate__animated animate__fadeIn">
         {children}
       </main>
 

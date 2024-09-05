@@ -1,15 +1,21 @@
 import { useState } from 'react';
 
-const useModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const useModal = (initialModalState = false) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(initialModalState);
 
-  const toggleModalOpen = () => {
-    setIsModalOpen(!isModalOpen);
+  const openModal = () => {
+    setIsModalOpen(true);
+    window.document.body.classList.add('overflow-hidden');
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    window.document.body.classList.remove('overflow-hidden');
+  };
   return {
     isModalOpen,
-    toggleModalOpen,
+    openModal,
+    closeModal,
   };
 };
 

@@ -4,7 +4,7 @@ const AppFooter = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full sm:max-w-[85%] lg:max-w-[90%] xl:max-w-[70%]  m-auto flex flex-col justify-center items-center gap-4 py-6 md:flex-row md:justify-between md:items-center">
+    <footer className="w-full  sm:max-w-[85%] lg:max-w-[90%] xl:max-w-[70%]  m-auto px-4 flex flex-col justify-center items-center gap-4 py-6 md:flex-row md:justify-between md:items-center">
       <MainLogo />
 
       <div className="flex flex-col justify-center items-center">

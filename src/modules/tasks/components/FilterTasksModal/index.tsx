@@ -1,9 +1,10 @@
 interface Props {
   isModalOpen: boolean;
-  toggleModalOpen: () => void;
+  openModal: () => void;
+  closeModal: () => void;
 }
 
-const FilterTasksModal = ({ isModalOpen, toggleModalOpen }: Props) => {
+const FilterTasksModal = ({ isModalOpen, openModal, closeModal }: Props) => {
   return (
     <div
       className={`fixed z-50 inset-0 flex items-center justify-center transition-opacity duration-600 ease-linear ${
@@ -13,7 +14,7 @@ const FilterTasksModal = ({ isModalOpen, toggleModalOpen }: Props) => {
       {/* Fondo oscuro */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 ${isModalOpen ? 'opacity-100' : 'opacity-0'}`}
-        onClick={toggleModalOpen}
+        onClick={openModal}
       ></div>
 
       {/* Contenido del modal */}
@@ -23,7 +24,7 @@ const FilterTasksModal = ({ isModalOpen, toggleModalOpen }: Props) => {
         }`}
       >
         {/* Botón de cierre */}
-        <button onClick={toggleModalOpen} type="button" className="text-gray-500 hover:text-gray-700 float-right">
+        <button onClick={closeModal} type="button" className="text-gray-500 hover:text-gray-700 float-right">
           &times;
         </button>
 
