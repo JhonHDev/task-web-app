@@ -32,10 +32,15 @@ const TaskCard = ({ task }: Props) => {
             src={task.image}
             alt="Imagen de una tarea"
             title={`Tarea: ${task.name}`}
-            className="rounded-t-md overflow-hidden"
+            className="rounded-t-md overflow-hidden object-top object-cover w-full h-[280px] md:h-[190px]"
           />
         ) : (
-          <div className="w-full h-full bg-gray-600"></div>
+          <img
+            src={'/images/img-deafult.jpg'}
+            alt="Imagen de una tarea"
+            title={`Tarea: ${task.name}`}
+            className="rounded-t-md overflow-hidden object-top object-cover w-full h-[280px] md:h-[190px]"
+          />
         )}
 
         <div className="p-3 flex flex-col gap-2">

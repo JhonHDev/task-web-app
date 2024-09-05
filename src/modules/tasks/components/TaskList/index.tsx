@@ -1,48 +1,30 @@
-import { Task, TaskPriority, TaskStatus } from '../../models/Task';
-import TaskCard from '../TaskCard';
+import { useQuery } from '@tanstack/react-query';
 
-const list: Task[] = [
-  {
-    id: 1,
-    created_at: '2024-09-02T12:16:02.895672+00:00',
-    name: 'Completar el proyecto',
-    status: TaskStatus.ToDo,
-    priority: TaskPriority.High,
-    due_date: '2024-09-15',
-    description: 'Finalizar todas las tareas del proyecto',
-    image:
-      'https://images.ctfassets.net/denf86kkcx7r/4IPlg4Qazd4sFRuCUHIJ1T/f6c71da7eec727babcd554d843a528b8/gatocomuneuropeo-97?fm=webp&w=913',
-  },
-  {
-    id: 2,
-    created_at: '2024-09-02T12:16:02.895672+00:00',
-    name: 'Revisar el código',
-    status: TaskStatus.InProgress,
-    priority: TaskPriority.Medium,
-    due_date: '2024-09-10',
-    description: 'Hacer una revisión exhaustiva del código',
-    image:
-      'https://images.ctfassets.net/denf86kkcx7r/4IPlg4Qazd4sFRuCUHIJ1T/f6c71da7eec727babcd554d843a528b8/gatocomuneuropeo-97?fm=webp&w=913',
-  },
-  {
-    id: 3,
-    created_at: '2024-09-02T12:16:02.895672+00:00',
-    name: 'Configurar servidor',
-    status: TaskStatus.InProgress,
-    priority: TaskPriority.Medium,
-    due_date: '2024-09-15',
-    description: 'Configurar y desplegar el servidor',
-    image:
-      'https://images.ctfassets.net/denf86kkcx7r/4IPlg4Qazd4sFRuCUHIJ1T/f6c71da7eec727babcd554d843a528b8/gatocomuneuropeo-97?fm=webp&w=913',
-  },
-];
+import TaskCard from '../TaskCard';
+import getAllTasks from '../../services/getAllTasks';
 
 const TaskList = () => {
+  const { data: tasks, isFetching } = useQuery({
+    queryKey: ['getAllTasks'],
+    queryFn: getAllTasks,
+  });
+
+  if (isFetching) {
+    return (
+      <section className="flex flex-wrap gap-8 md:gap-4 lg:gap-5 justify-center items-center m-auto w-full">
+        <div className="flex items-center justify-cente">
+          <div className="relative">
+            <div className="w-[90px] h-[90px] border-t-8 border-b-8 border-blue-500 rounded-full animate-spin"></div>
+            <div className="absolute inset-0 flex items-center justify-center"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="flex flex-wrap gap-8 md:gap-4 lg:gap-5 justify-start items-center">
-      {list.map((task) => (
-        <TaskCard key={task.id} task={task} />
-      ))}
+      {tasks && tasks.map((task) => <TaskCard key={task.id} task={task} />)}
     </section>
   );
 };
