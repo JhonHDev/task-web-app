@@ -4,16 +4,25 @@ import { useDispatch } from 'react-redux';
 import closeAuthSession from '../../../services/auth/closeAuthSession';
 
 import { removeUser } from '../../../../modules/auth/authSlice';
+import { showQuestionAlert } from '../../../helpers/alerts';
 
 interface Props {
   name: string | null | undefined;
+  toggleMenuOpen: () => void;
 }
 
-const ProfileMenu = ({ name }: Props) => {
+const ProfileMenu = ({ name, toggleMenuOpen }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleCloseAuthSession = async () => {
+    const result = await showQuestionAlert('¿Desea cerrar su sesión?');
+
+    if (!result.isConfirmed) {
+      toggleMenuOpen();
+      return;
+    }
+
     await closeAuthSession();
     dispatch(removeUser());
     navigate('/auth/login');

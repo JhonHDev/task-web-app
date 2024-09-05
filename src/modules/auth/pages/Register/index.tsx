@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { createNewAccount } from '../../services';
 import { addUser } from '../../authSlice';
+import { showErrorAlert } from '../../../../shared/helpers/alerts';
 
 import AuthFormTitle from '../../components/AuthFormTitle';
 import AuthOptions from '../../components/AuthOptions';
@@ -49,6 +50,7 @@ const Register = () => {
       navigate('/');
     } catch (error) {
       console.log(error);
+      showErrorAlert('Credenciales de registro no válidas');
     } finally {
       setIsLoading(false);
     }

@@ -22,7 +22,7 @@ const Profile = ({ isMenuOpen, toggleMenuOpen }: Props) => {
         </div>
       </button>
 
-      {isMenuOpen && <ProfileMenu name={user?.name} />}
+      {isMenuOpen && <ProfileMenu name={user?.name} toggleMenuOpen={toggleMenuOpen} />}
     </div>
   );
 };

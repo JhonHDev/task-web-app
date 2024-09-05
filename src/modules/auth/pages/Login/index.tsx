@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { loginWithEmailAndPassword } from '../../services';
 import { addUser } from '../../authSlice';
+import { showErrorAlert } from '../../../../shared/helpers/alerts';
 
 import AuthFormTitle from '../../components/AuthFormTitle';
 import AuthOptions from '../../components/AuthOptions';
@@ -48,6 +49,7 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       console.log(error);
+      showErrorAlert('Credenciales de inicio de sesión inválidas');
     } finally {
       setIsLoading(false);
     }
