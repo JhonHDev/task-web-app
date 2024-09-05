@@ -1,8 +1,12 @@
+import AppLayout from '../../../../shared/pages/AppLayout';
+
 const Tasklist = () => {
   return (
-    <div>
-      <h1>Lista de tareas</h1>
-    </div>
+    <AppLayout>
+      <div>
+        <h1>Lista de tareas</h1>
+      </div>
+    </AppLayout>
   );
 };
 

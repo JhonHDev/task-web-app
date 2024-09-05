@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
+import AppLoader from '../shared/components/AppLoader';
+
 import router from '.';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { addUser, removeUser } from '../modules/auth/authSlice';
 import { auth } from '../config/firebase';
-
-import AppLoader from '../shared/components/AppLoader';
 
 const AuthProvider = () => {
   const dispatch = useDispatch();
