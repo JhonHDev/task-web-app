@@ -30,13 +30,15 @@ const FormTask = ({ isToUpdate }: Props) => {
   } = useForm<FormFiels>();
 
   useEffect(() => {
-    if (task) {
-      setValue('name', task.name);
-      setValue('description', task.description);
-      setValue('date', task.due_date);
-      setValue('priority', task.priority);
-      setValue('status', task.status);
+    if (!task) {
+      return;
     }
+
+    setValue('name', task.name);
+    setValue('description', task.description);
+    setValue('date', task.due_date);
+    setValue('priority', task.priority);
+    setValue('status', task.status);
   }, [task, setValue]);
 
   const onSubmit = async () => {
@@ -121,6 +123,7 @@ const FormTask = ({ isToUpdate }: Props) => {
             })}
           >
             <option value="">Elegir Prioridad</option>
+
             {Object.values(TaskPriority).map((priority) => (
               <option key={priority} value={priority}>
                 {priority}

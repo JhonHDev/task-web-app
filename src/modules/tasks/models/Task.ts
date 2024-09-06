@@ -10,13 +10,13 @@ export interface Task {
 }
 
 export enum TaskPriority {
-  High = 'High',
-  Low = 'Low',
-  Medium = 'Medium',
+  High = 'Alta',
+  Medium = 'Media',
+  Low = 'Baja',
 }
 
 export enum TaskStatus {
-  Completed = 'Completed',
-  InProgress = 'In progress',
-  ToDo = 'To do',
+  Completed = 'Completada',
+  InProgress = 'En progreso',
+  ToDo = 'Por hacer',
 }
