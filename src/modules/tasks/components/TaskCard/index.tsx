@@ -67,7 +67,7 @@ const TaskCard = ({ task }: Props) => {
             </div>
 
             <div className="flex">
-              <span className="text-gray-400">{formatDateToDMY(task.created_at)}</span>
+              <span className="text-gray-400">{formatDateToDMY(task.due_date)}</span>
             </div>
           </div>
         </div>

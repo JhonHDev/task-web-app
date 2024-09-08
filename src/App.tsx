@@ -1,5 +1,7 @@
 import { Provider } from 'react-redux';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { store } from './config/redux/store';
 
@@ -19,6 +21,8 @@ const App = () => {
       <Provider store={store}>
         <AuthProvider />
       </Provider>
+
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 };

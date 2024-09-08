@@ -43,7 +43,7 @@ const FormTaskModal = ({ isModalOpen, closeModal, isToUpdate }: Props) => {
 
         {/* Contenido del modal */}
         <div className="mt-4 min-h-[30vh]">
-          <FormTask isToUpdate={isToUpdate || false} />
+          <FormTask isToUpdate={isToUpdate || false} closeModal={closeModal} />
         </div>
       </div>
     </div>

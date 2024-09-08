@@ -4,12 +4,16 @@ import TaskCard from '../TaskCard';
 import getAllTasks from '../../services/getAllTasks';
 
 const TaskList = () => {
-  const { data: tasks, isFetching } = useQuery({
+  const {
+    data: tasks,
+    isFetching,
+    isLoading,
+  } = useQuery({
     queryKey: ['getAllTasks'],
     queryFn: getAllTasks,
   });
 
-  if (isFetching) {
+  if (isFetching || isLoading) {
     return (
       <section className="flex flex-wrap gap-8 md:gap-4 lg:gap-5 justify-center items-center m-auto w-full">
         <div className="flex items-center justify-cente">
@@ -23,7 +27,7 @@ const TaskList = () => {
   }
 
   return (
-    <section className="flex flex-wrap gap-8 md:gap-4 lg:gap-5 justify-start items-center">
+    <section className="flex flex-wrap gap-8 md:gap-4 lg:gap-5 justify-start items-center animate__animated animate__fadeIn">
       {tasks && tasks.map((task) => <TaskCard key={task.id} task={task} />)}
     </section>
   );
