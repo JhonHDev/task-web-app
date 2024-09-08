@@ -11,18 +11,12 @@ const TaskInputSearch = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
-    reset,
   } = useForm<FormFiels>();
 
   const dispatch = useDispatch();
 
-  const onSubmit = () => {
-    const { searchValue } = getValues();
-    dispatch(filterTasksByName(searchValue));
-    reset();
-  };
+  const onSubmit = () => {};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full  max-w-screen-sm">
