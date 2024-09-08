@@ -1,17 +1,24 @@
 import { useDispatch } from 'react-redux';
+
 import formatDateToDMY from '../../../../shared/helpers/formatDateToDMY';
 import useModal from '../../../../shared/hooks/useModal';
 
 import { Task } from '../../models/Task';
+import { TypeOfColumn } from '../../models/TypeOfColumn';
+
 import { addTask } from '../../slices/singleTaskSlice';
 
 import FormTaskModal from '../FormTaskModal';
+import TaskDropArea from '../TaskDropArea';
 
 interface Props {
   task: Task;
+  setActiveCardId: React.Dispatch<React.SetStateAction<number>>;
+  setOldColumnId: React.Dispatch<React.SetStateAction<TypeOfColumn | undefined>>;
+  handleOnDropTask: () => void;
 }
 
-const TaskCard = ({ task }: Props) => {
+const TaskCard = ({ task, setActiveCardId, setOldColumnId, handleOnDropTask }: Props) => {
   const dispatch = useDispatch();
 
   const formTaskModal = useModal();
@@ -25,6 +32,12 @@ const TaskCard = ({ task }: Props) => {
     <>
       <article
         draggable
+        onDragStart={(e: React.DragEvent<HTMLElement>) => {
+          setActiveCardId(task.id);
+          const oldColumnId = (e.target as HTMLElement).parentElement?.id as TypeOfColumn;
+          setOldColumnId(oldColumnId);
+        }}
+        onDragEnd={() => setActiveCardId(0)}
         onClick={handleOpenModalToUpdateTask}
         className="w-full max-w-[274px] bg-white border py-4 px-6 cursor-pointer shadow rounded-sm hover:scale-105 transition-all"
       >
@@ -68,6 +81,8 @@ const TaskCard = ({ task }: Props) => {
           </div>
         </div>
       </article>
+
+      <TaskDropArea handleOnDropTask={() => handleOnDropTask()} />
 
       {formTaskModal.isModalOpen && (
         <FormTaskModal
