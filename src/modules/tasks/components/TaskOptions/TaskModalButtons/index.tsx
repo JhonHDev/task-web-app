@@ -1,7 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { GroupByState } from '../../../models/GroupByState';
 import { changeGroupTaskState } from '../../../slices/groupTasksSlice';
+import { RootState } from '../../../../../config/redux/store';
 
 interface Props {
   openCreateTaskModal: () => void;
@@ -10,6 +11,8 @@ interface Props {
 
 const TaskModalButtons = ({ openCreateTaskModal }: Props) => {
   const dispatch = useDispatch();
+
+  const { groupBy } = useSelector((state: RootState) => state.groupTasksState);
 
   const handleSelectGroupChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const groupBy = e.target.value;
@@ -43,6 +46,7 @@ const TaskModalButtons = ({ openCreateTaskModal }: Props) => {
 
       <select
         onChange={handleSelectGroupChange}
+        value={groupBy}
         className="text-[#333] border rounded-lg py-3 px-4 flex justify-center items-center gap-4 cursor-pointer"
       >
         <option value="">Agrupar por:</option>
