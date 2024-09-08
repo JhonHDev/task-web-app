@@ -8,7 +8,8 @@ import updateTaskById from '../services/updateTaskById';
 
 const useUpdateTaskStateMutation = () => {
   const queryClient = useQueryClient();
-  const { groupTasksState } = useSelector((state: RootState) => state);
+
+  const { groupBy } = useSelector((state: RootState) => state.groupTasksState);
 
   const taskUpdateMutation = useMutation({
     mutationFn: updateTaskById,
@@ -16,7 +17,7 @@ const useUpdateTaskStateMutation = () => {
       queryClient.invalidateQueries({
         queryKey: [
           'getAllTasks',
-          { groupBy: groupTasksState.groupBy === GroupByState.Priority ? GroupByState.Status : GroupByState.Priority },
+          { groupBy: groupBy === GroupByState.Priority ? GroupByState.Status : GroupByState.Priority },
         ],
       });
     },

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../../../config/redux/store';
 import { Task, TaskPriority, TaskStatus } from '../../models/Task';
@@ -12,6 +12,7 @@ import getAllTasks from '../../services/getAllTasks';
 import TaskCard from '../TaskCard';
 import TaskDropArea from '../TaskDropArea';
 import useUpdateTaskStateMutation from '../../hooks/useUpdateTaskStateMutation';
+import { addInitalTasks } from '../../slices/filteredTasksSlice';
 
 interface OnDropTaskFn {
   typeOfFilter: string;
@@ -24,10 +25,16 @@ interface OnDropTaskFn {
 }
 const TaskList = () => {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   const { groupBy } = useSelector((state: RootState) => state.groupTasksState);
+  const { filteredTasks } = useSelector((state: RootState) => state.filteredTasks);
 
-  const { data: tasks, isFetching } = useQuery({
+  const {
+    data: tasks,
+    isFetching,
+    isLoading,
+  } = useQuery({
     queryKey: ['getAllTasks', { groupBy }],
     queryFn: () => getAllTasks({ groupBy }),
     staleTime: 3600000, // Fresh data by 1 Hour
@@ -45,12 +52,18 @@ const TaskList = () => {
   });
 
   useEffect(() => {
+    if (!isLoading && tasks) {
+      dispatch(addInitalTasks(tasks));
+    }
+  }, [tasks, isLoading, dispatch]);
+
+  useEffect(() => {
     setTaskListLengths({
-      arrayOneLength: tasks?.arrayOne.length || 0,
-      arrayTwoLength: tasks?.arrayTwo.length || 0,
-      arrayThreeLength: tasks?.arrayThree.length || 0,
+      arrayOneLength: filteredTasks?.arrayOne.length || 0,
+      arrayTwoLength: filteredTasks?.arrayTwo.length || 0,
+      arrayThreeLength: filteredTasks?.arrayThree.length || 0,
     });
-  }, [tasks]);
+  }, [filteredTasks]);
 
   const handleOnDropTask = ({
     typeOfFilter,
@@ -146,7 +159,7 @@ const TaskList = () => {
       )}
 
       <section className="flex flex-wrap gap-6 md:gap-4 lg:gap-5 justify-start items-center animate__animated animate__fadeIn">
-        {tasks && (
+        {filteredTasks && (
           <>
             <div className="flex flex-col self-start gap-3 w-full md:max-w-[260px] 2xl:max-w-[300px] ">
               {groupBy === GroupByState.Priority ? (
@@ -178,7 +191,7 @@ const TaskList = () => {
                     }
                   />
 
-                  {tasks.arrayOne.map((task, index) => (
+                  {filteredTasks.arrayOne.map((task, index) => (
                     <TaskCard
                       key={task.id}
                       task={task}
@@ -231,7 +244,7 @@ const TaskList = () => {
                     }
                   />
 
-                  {tasks.arrayTwo.map((task, index) => (
+                  {filteredTasks.arrayTwo.map((task, index) => (
                     <TaskCard
                       key={task.id}
                       task={task}
@@ -284,7 +297,7 @@ const TaskList = () => {
                     }
                   />
 
-                  {tasks.arrayThree.map((task, index) => (
+                  {filteredTasks.arrayThree.map((task, index) => (
                     <TaskCard
                       key={task.id}
                       task={task}
