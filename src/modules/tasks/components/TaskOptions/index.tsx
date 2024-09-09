@@ -5,19 +5,22 @@ import TaskModalButtons from './TaskModalButtons';
 import FormTaskModal from '../FormTaskModal';
 import FilterTasksModal from '../FilterTasksModal';
 
-const TaskOptions = () => {
-  const createTaskModal = useModal();
+interface Props {
+  createTaskModal: {
+    isModalOpen: boolean;
+    openModal: () => void;
+    closeModal: () => void;
+  };
+}
+
+const TaskOptions = ({ createTaskModal }: Props) => {
   const filterTasksModal = useModal();
 
   return (
     <>
-      <div className="flex flex-wrap gap-5 justify-between items-center">
+      <div className="flex flex-wrap gap-5 justify-between items-center order-2 lg:order-1">
         <TaskInputSearch />
-
-        <TaskModalButtons
-          openCreateTaskModal={createTaskModal.openModal}
-          openFilterTasksModal={filterTasksModal.openModal}
-        />
+        <TaskModalButtons />
       </div>
 
       {createTaskModal.isModalOpen && (

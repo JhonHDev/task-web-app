@@ -259,6 +259,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
 
           <div className="relative cursor-pointer">
             <select
+              defaultValue={TaskPriority.Low}
               className=" relative w-full max-w-[200px] px-4 py-2 pr-10 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent cursor-pointer"
               {...register('priority', {
                 required: {
@@ -272,7 +273,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
               </option>
 
               {Object.values(TaskPriority).map((priority) => (
-                <option key={priority} value={priority} selected={priority === TaskPriority.Low ? true : false}>
+                <option key={priority} value={priority}>
                   {priority}
                 </option>
               ))}
@@ -293,6 +294,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
 
           <div className="relative cursor-pointer">
             <select
+              defaultValue={TaskStatus.ToDo}
               className=" relative w-full max-w-[200px] px-4 py-2 pr-10 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent cursor-pointer"
               {...register('status', {
                 required: {
@@ -306,7 +308,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
               </option>
 
               {Object.values(TaskStatus).map((status) => (
-                <option key={status} value={status} selected={status === TaskStatus.ToDo ? true : false}>
+                <option key={status} value={status}>
                   {status}
                 </option>
               ))}

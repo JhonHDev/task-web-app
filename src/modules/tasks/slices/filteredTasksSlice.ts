@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Task } from '../models/Task';
+import { Task, TaskPriority, TaskStatus } from '../models/Task';
 
 interface FilteredTasksState {
   initialTasks: {
@@ -27,6 +27,12 @@ const initialState: FilteredTasksState = {
   },
 };
 
+interface FilterTasksPayload {
+  name?: string;
+  priority?: TaskPriority;
+  status?: TaskStatus;
+}
+
 const filteredTasksSlice = createSlice({
   name: 'filteredTasks',
   initialState,
@@ -35,24 +41,24 @@ const filteredTasksSlice = createSlice({
       state.initialTasks = action.payload;
       state.filteredTasks = action.payload;
     },
-    filterTasksByName: (state, action) => {
-      const searchTerm = action.payload.toLowerCase();
+    filterTasks: (state, action: { payload: FilterTasksPayload }) => {
+      const { name, priority, status } = action.payload;
 
-      state.filteredTasks.arrayOne = state.initialTasks.arrayOne.filter((task) =>
-        task.name.toLowerCase().includes(searchTerm)
-      );
+      const filterTaskListFn = (task: Task) => {
+        const matchesName = name ? task.name.toLowerCase().includes(name.toLowerCase()) : true;
+        const matchesPriority = priority ? task.priority === priority : true;
+        const matchesStatus = status ? task.status === status : true;
 
-      state.filteredTasks.arrayTwo = state.initialTasks.arrayTwo.filter((task) =>
-        task.name.toLowerCase().includes(searchTerm)
-      );
+        return matchesName && matchesPriority && matchesStatus;
+      };
 
-      state.filteredTasks.arrayThree = state.initialTasks.arrayThree.filter((task) =>
-        task.name.toLowerCase().includes(searchTerm)
-      );
+      state.filteredTasks.arrayOne = state.initialTasks.arrayOne.filter(filterTaskListFn);
+      state.filteredTasks.arrayTwo = state.initialTasks.arrayTwo.filter(filterTaskListFn);
+      state.filteredTasks.arrayThree = state.initialTasks.arrayThree.filter(filterTaskListFn);
     },
   },
 });
 
-export const { addInitalTasks, filterTasksByName } = filteredTasksSlice.actions;
+export const { addInitalTasks, filterTasks } = filteredTasksSlice.actions;
 
 export default filteredTasksSlice;

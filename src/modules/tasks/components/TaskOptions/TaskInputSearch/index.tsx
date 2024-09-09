@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-
-import { filterTasksByName } from '../../../slices/filteredTasksSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterTasks } from '../../../slices/filteredTasksSlice';
+import { RootState } from '../../../../../config/redux/store';
+import { useEffect } from 'react';
 
 type FormFiels = {
   searchValue: string;
@@ -12,9 +13,15 @@ const TaskInputSearch = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormFiels>();
 
   const dispatch = useDispatch();
+  const { groupBy } = useSelector((state: RootState) => state.groupTasksState);
+
+  useEffect(() => {
+    reset();
+  }, [groupBy, reset]);
 
   const onSubmit = () => {};
 
@@ -30,7 +37,13 @@ const TaskInputSearch = () => {
             message: 'Nombre requerido',
           },
           onChange: (e) => {
-            dispatch(filterTasksByName(e.target.value));
+            const name = e.target.value as string;
+
+            dispatch(
+              filterTasks({
+                name,
+              })
+            );
           },
         })}
       />
