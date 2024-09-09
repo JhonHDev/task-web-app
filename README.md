@@ -1,12 +1,30 @@
-# Task Web App (status: en desarollo)
+# Task Web App
 
 Aplicación Web que pose una autenticación con Firebase y una pantalla de principal
 donde se podrán ver una lista de tareas, se pueden crear tareas, actualizarlas y eliminarás.
-Además de contar con diferentes tipos de filtros que permiten agrupar las tareas según su estado, prioridad y fecha de entrega.
+Además de contar con diferentes tipos de filtros que permiten agrupar las tareas según su estado, prioridad.
 
 ## Link del proyecto en producción
 
-[Task Web App](https://task-web-app-jelou.vercel.app)
+[Task Web App]()
+
+## Vista previa
+
+![](https://res.cloudinary.com/dxnkaz9ad/image/upload/v1725905445/img-task-web-app_e0nhg6.png)
+
+## Stack: 📕
+
+- **React**
+- **TypeScript**
+- **React Router Dom**
+- **React Redux**
+- **React Hook Form**
+- **Firebase**
+- **Axios**
+- **React Query**
+- **Redux Toolkit**
+- **Animate.css**
+- **Sweetalert2**
 
 ## Para usar el proyecto
 
@@ -41,3 +59,7 @@ VITE_APP_CLOUDINARY_PRESET_NAME=
 ```
 yarn dev
 ```
+
+### Linkedin 👋🏼
+
+- [Linkedin](https://www.linkedin.com/in/jhon-esteban-herrera/ 'Mi Linkendin')
