@@ -185,6 +185,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
             type="file"
             id="inputImgFile"
             accept="image/*"
+            className="w-full max-w-[300px]"
             disabled={selectedTaskFileImg ? true : false}
             {...register('img', {
               onChange: (e: ChangeEvent<HTMLInputElement>) => {
@@ -284,12 +285,12 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
 
           {errors.status && <span className="text-red-500 -mt-2">{errors.status.message}</span>}
 
-          <div className="flex justify-between py-5">
+          <div className="flex flex-col gap-4 md:flex-row justify-between py-5">
             {isToUpdate ? (
               <button
                 disabled={isSavingImg || taskUpdateMutation.isPending || taskDeleteMutation.isPending}
                 type="submit"
-                className={`px-6 py-2 rounded-md text-white ${taskUpdateMutation.isPending || taskDeleteMutation.isPending ? 'bg-[#3b82f6b8]' : 'bg-blue-500'}`}
+                className={`w-full max-w-[280px] md:max-w-[180px] px-6 py-2 rounded-md text-white ${taskUpdateMutation.isPending || taskDeleteMutation.isPending ? 'bg-[#3b82f6b8]' : 'bg-blue-500'}`}
               >
                 {isSavingImg || taskUpdateMutation.isPending ? 'Actualizando...' : 'Actualizar'}
               </button>
@@ -297,7 +298,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
               <button
                 disabled={isSavingImg || taskCreateMutation.isPending || taskDeleteMutation.isPending}
                 type="submit"
-                className={`px-6 py-2 rounded-md text-white ${taskCreateMutation.isPending || taskDeleteMutation.isPending ? 'bg-[#3b82f6b8]' : 'bg-blue-500'} `}
+                className={`w-full max-w-[280px] md:max-w-[180px] px-6 py-2 rounded-md text-white ${taskCreateMutation.isPending || taskDeleteMutation.isPending ? 'bg-[#3b82f6b8]' : 'bg-blue-500'} `}
               >
                 {isSavingImg || taskCreateMutation.isPending ? 'Creando...' : 'Crear'}
               </button>
@@ -307,7 +308,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
               disabled={taskDeleteMutation.isPending || taskCreateMutation.isPending || taskUpdateMutation.isPending}
               onClick={handleDeleteTask}
               type="button"
-              className={`px-8 py-2 rounded-md text-white ${taskDeleteMutation.isPending || taskCreateMutation.isPending || taskUpdateMutation.isPending ? 'bg-[#ef4444b0]' : 'bg-red-500'} `}
+              className={`w-full max-w-[280px] md:max-w-[180px] px-8 py-2 rounded-md text-white ${taskDeleteMutation.isPending || taskCreateMutation.isPending || taskUpdateMutation.isPending ? 'bg-[#ef4444b0]' : 'bg-red-500'} `}
             >
               {taskDeleteMutation.isPending ? 'Eliminando...' : 'Eliminar'}
             </button>

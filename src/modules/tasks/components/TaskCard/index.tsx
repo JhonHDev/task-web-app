@@ -45,7 +45,7 @@ const TaskCard = ({ task, setActiveCardId, setOldColumnId, handleOnDropTask }: P
           <div className="flex justify-start gap-2 items-center">
             {task.image ? (
               <div className="w-[40px] h-[40px] border rounded-full overflow-hidden flex justify-center items-center">
-                <img src={task.image} alt="Imagen de una tarea" className="w-full object-center object-cover" />
+                <img src={task.image} alt="Imagen de una tarea" className="w-full h-full object-cover" />
               </div>
             ) : (
               <div className="w-[40px] h-[40px] border rounded-full overflow-hidden flex justify-center items-center">
@@ -82,7 +82,7 @@ const TaskCard = ({ task, setActiveCardId, setOldColumnId, handleOnDropTask }: P
         </div>
       </article>
 
-      <TaskDropArea handleOnDropTask={() => handleOnDropTask()} />
+      <TaskDropArea handleOnDropTask={handleOnDropTask} />
 
       {formTaskModal.isModalOpen && (
         <FormTaskModal
@@ -95,60 +95,5 @@ const TaskCard = ({ task, setActiveCardId, setOldColumnId, handleOnDropTask }: P
     </>
   );
 };
-
-/*
-
-     <article
-        onClick={handleOpenModalToUpdateTask}
-        className="relative w-full h-[524px] md:max-w-[280px] md:h-[400px] lg:max-w-[280px] lg:min-h-[400px] shadow-md cursor-pointer hover:scale-105 transition-all"
-      >
-        {task.image ? (
-          <img
-            src={task.image}
-            alt="Imagen de una tarea"
-            title={`Tarea: ${task.name}`}
-            className="rounded-t-md overflow-hidden object-top object-cover w-full h-[280px] md:h-[190px]"
-          />
-        ) : (
-          <img
-            src={'/images/img-deafult.jpg'}
-            alt="Imagen de una tarea"
-            title={`Tarea: ${task.name}`}
-            className="rounded-t-md overflow-hidden object-top object-cover w-full h-[280px] md:h-[190px]"
-          />
-        )}
-
-        <div className="p-3 flex flex-col gap-2">
-          <h4 className="font-bold">{task.name}</h4>
-          <p className="md:w-[260px] break-words">{task.description}</p>
-
-          <div className="flex justify-start items-center">
-            <div className="flex justify-start items-center gap-2">
-              <span className="font-medium">Estado: </span>
-              <span className="border py-1 px-3 rounded-full text-sm">{task.status}</span>
-            </div>
-
-             <div className="flex gap-2">
-              <label htmlFor={task.id.toString()} className="cursor-pointer">
-                <span>Seleccionar: </span>
-                <input type="checkbox" name="" id={task.id.toString()} className="px-1 cursor-pointer" />
-              </label>
-            </div> 
-          </div>
-
-          <div className="absolute w-full bottom-0 left-0 px-3 flex justify-between items-center pb-2">
-            <div className="flex">
-              Priodad: <span className="px-1 font-light">{task.priority}</span>
-            </div>
-
-            <div className="flex">
-              <span className="text-gray-400">{formatDateToDMY(task.due_date)}</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-
-*/
 
 export default TaskCard;
