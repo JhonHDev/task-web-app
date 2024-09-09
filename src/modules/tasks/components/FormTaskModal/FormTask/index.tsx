@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { RootState } from '../../../../../config/redux/store';
 import { TaskPriority, TaskStatus } from '../../../models/Task';
-import { showErrorAlert, showQuestionAlert } from '../../../../../shared/helpers/alerts';
+import { showQuestionAlert } from '../../../../../shared/helpers/alerts';
 import { saveTaskImgInCloudinary } from '../../../../../shared/services/cloudinary';
 
 import useCreateTaskMutation from '../../../hooks/useCreateTaskMutation';
@@ -38,13 +38,16 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
   const [selectedTaskFileImg, setSelectedTaskFileImg] = useState<File>();
   const [isSavingImg, setIsSavingImg] = useState(false);
 
+  const minDate = task
+    ? new Date(task.created_at as string).toISOString().split('T')[0]
+    : new Date().toISOString().split('T')[0];
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
     getValues,
-    reset,
   } = useForm<FormFiels>();
 
   useEffect(() => {
@@ -67,11 +70,6 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
   };
 
   const handleCreateTask = async () => {
-    if (!selectedTaskFileImg) {
-      showErrorAlert('Debes cargar una imagen');
-      return;
-    }
-
     const result = await showQuestionAlert('¿Crear tarea?');
 
     if (!result.isConfirmed) {
@@ -80,9 +78,13 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
 
     const { name, date: due_date, description, priority, status } = getValues();
 
-    setIsSavingImg(true);
-    const image = await saveTaskImgInCloudinary(selectedTaskFileImg);
-    setIsSavingImg(false);
+    let image;
+
+    if (selectedTaskFileImg) {
+      setIsSavingImg(true);
+      image = await saveTaskImgInCloudinary(selectedTaskFileImg);
+      setIsSavingImg(false);
+    }
 
     taskCreateMutation.mutate({
       name,
@@ -119,8 +121,6 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
         image: image?.secure_url || null,
       });
 
-      reset();
-
       return;
     }
 
@@ -133,8 +133,6 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
       status,
       image: task?.image || null,
     });
-
-    reset();
   };
 
   const handleDeleteTask = async () => {
@@ -213,7 +211,19 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
             {...register('name', {
               required: {
                 value: true,
-                message: 'El nombre es requerida',
+                message: 'El nombre es requerido',
+              },
+              minLength: {
+                value: 3,
+                message: 'Mínimo 3 caracteres',
+              },
+              maxLength: {
+                value: 50,
+                message: 'Máximo 50 caracteres',
+              },
+              pattern: {
+                value: /^(?![ _])(?!.*[ _]$).*$/,
+                message: 'Nombre no válido',
               },
             })}
           />
@@ -222,6 +232,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
 
           <input
             type="date"
+            min={minDate}
             className="border py-2 px-6 rounded-lg w-[240px] cursor-pointer"
             {...register('date', {
               required: {
@@ -237,9 +248,9 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
             placeholder="Descripción"
             className="border w-full rounded-lg py-2 px-4"
             {...register('description', {
-              required: {
-                value: true,
-                message: 'La descripción es requerida',
+              maxLength: {
+                value: 120,
+                message: 'Máximo 120 caracteres',
               },
             })}
           ></textarea>
@@ -252,14 +263,16 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
               {...register('priority', {
                 required: {
                   value: true,
-                  message: 'Elige una opción ',
+                  message: 'Prioridad requerida',
                 },
               })}
             >
-              <option value="">Elegir Prioridad</option>
+              <option value="" disabled>
+                Elegir Prioridad
+              </option>
 
               {Object.values(TaskPriority).map((priority) => (
-                <option key={priority} value={priority}>
+                <option key={priority} value={priority} selected={priority === TaskPriority.Low ? true : false}>
                   {priority}
                 </option>
               ))}
@@ -284,13 +297,16 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
               {...register('status', {
                 required: {
                   value: true,
-                  message: 'Elige una opción ',
+                  message: 'Estado requerido',
                 },
               })}
             >
-              <option value="">Elegir Estado</option>
+              <option value="" disabled>
+                Elegir Estado
+              </option>
+
               {Object.values(TaskStatus).map((status) => (
-                <option key={status} value={status}>
+                <option key={status} value={status} selected={status === TaskStatus.ToDo ? true : false}>
                   {status}
                 </option>
               ))}

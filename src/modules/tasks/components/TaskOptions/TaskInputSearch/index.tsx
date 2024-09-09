@@ -29,10 +29,6 @@ const TaskInputSearch = () => {
             value: true,
             message: 'Nombre requerido',
           },
-          minLength: {
-            value: 3,
-            message: 'Mínimo 3 caracteres',
-          },
           onChange: (e) => {
             dispatch(filterTasksByName(e.target.value));
           },
