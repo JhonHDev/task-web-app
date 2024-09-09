@@ -56,9 +56,12 @@ const filteredTasksSlice = createSlice({
       state.filteredTasks.arrayTwo = state.initialTasks.arrayTwo.filter(filterTaskListFn);
       state.filteredTasks.arrayThree = state.initialTasks.arrayThree.filter(filterTaskListFn);
     },
+    resetFilters: (state) => {
+      state.filteredTasks = state.initialTasks;
+    },
   },
 });
 
-export const { addInitalTasks, filterTasks } = filteredTasksSlice.actions;
+export const { addInitalTasks, filterTasks, resetFilters } = filteredTasksSlice.actions;
 
 export default filteredTasksSlice;

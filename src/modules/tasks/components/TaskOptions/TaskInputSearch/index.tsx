@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterTasks } from '../../../slices/filteredTasksSlice';
+
+import { filterTasks, resetFilters } from '../../../slices/filteredTasksSlice';
 import { RootState } from '../../../../../config/redux/store';
-import { useEffect } from 'react';
 
 type FormFiels = {
   searchValue: string;
@@ -21,7 +22,8 @@ const TaskInputSearch = () => {
 
   useEffect(() => {
     reset();
-  }, [groupBy, reset]);
+    dispatch(resetFilters());
+  }, [groupBy, reset, dispatch]);
 
   const onSubmit = () => {};
 
