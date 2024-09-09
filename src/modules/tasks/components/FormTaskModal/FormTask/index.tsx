@@ -185,7 +185,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
             type="file"
             id="inputImgFile"
             accept="image/*"
-            className="w-full max-w-[300px]"
+            className="w-full max-w-[300px]  md:max-w-[240px] lg:max-w-[360px]"
             disabled={selectedTaskFileImg ? true : false}
             {...register('img', {
               onChange: (e: ChangeEvent<HTMLInputElement>) => {
@@ -246,42 +246,66 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
 
           {errors.description && <span className="text-red-500 -mt-2">{errors.description.message}</span>}
 
-          <select
-            className="p-2 border rounded-lg w-[240px] px-1 cursor-pointer select-style"
-            {...register('priority', {
-              required: {
-                value: true,
-                message: 'Elige una opción ',
-              },
-            })}
-          >
-            <option value="">Elegir Prioridad</option>
+          <div className="relative cursor-pointer">
+            <select
+              className=" relative w-full max-w-[200px] px-4 py-2 pr-10 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent cursor-pointer"
+              {...register('priority', {
+                required: {
+                  value: true,
+                  message: 'Elige una opción ',
+                },
+              })}
+            >
+              <option value="">Elegir Prioridad</option>
 
-            {Object.values(TaskPriority).map((priority) => (
-              <option key={priority} value={priority}>
-                {priority}
-              </option>
-            ))}
-          </select>
+              {Object.values(TaskPriority).map((priority) => (
+                <option key={priority} value={priority}>
+                  {priority}
+                </option>
+              ))}
+            </select>
+
+            <svg
+              className="absolute right-2/4 sm:left-1/3 sm:right-0  top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
 
           {errors.priority && <span className="text-red-500 -mt-2">{errors.priority.message}</span>}
 
-          <select
-            className="p-2 border rounded-lg w-[240px] px-1 cursor-pointer select-style"
-            {...register('status', {
-              required: {
-                value: true,
-                message: 'Elige una opción ',
-              },
-            })}
-          >
-            <option value="">Elegir Estado</option>
-            {Object.values(TaskStatus).map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
+          <div className="relative cursor-pointer">
+            <select
+              className=" relative w-full max-w-[200px] px-4 py-2 pr-10 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent cursor-pointer"
+              {...register('status', {
+                required: {
+                  value: true,
+                  message: 'Elige una opción ',
+                },
+              })}
+            >
+              <option value="">Elegir Estado</option>
+              {Object.values(TaskStatus).map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+
+            <svg
+              className="absolute  right-2/4 sm:left-1/3 sm:right-0  top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
 
           {errors.status && <span className="text-red-500 -mt-2">{errors.status.message}</span>}
 
