@@ -237,7 +237,7 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
             {...register('date', {
               required: {
                 value: true,
-                message: 'El fecha es requerida',
+                message: 'La fecha es requerida',
               },
             })}
           />
@@ -346,14 +346,16 @@ const FormTask = ({ isToUpdate, closeModal }: Props) => {
               </button>
             )}
 
-            <button
-              disabled={taskDeleteMutation.isPending || taskCreateMutation.isPending || taskUpdateMutation.isPending}
-              onClick={handleDeleteTask}
-              type="button"
-              className={`w-full max-w-[280px] md:max-w-[180px] px-8 py-2 rounded-md text-white ${taskDeleteMutation.isPending || taskCreateMutation.isPending || taskUpdateMutation.isPending ? 'bg-[#ef4444b0]' : 'bg-red-500'} `}
-            >
-              {taskDeleteMutation.isPending ? 'Eliminando...' : 'Eliminar'}
-            </button>
+            {isToUpdate && (
+              <button
+                disabled={taskDeleteMutation.isPending || taskCreateMutation.isPending || taskUpdateMutation.isPending}
+                onClick={handleDeleteTask}
+                type="button"
+                className={`w-full max-w-[280px] md:max-w-[180px] px-8 py-2 rounded-md text-white ${taskDeleteMutation.isPending || taskCreateMutation.isPending || taskUpdateMutation.isPending ? 'bg-[#ef4444b0]' : 'bg-red-500'} `}
+              >
+                {taskDeleteMutation.isPending ? 'Eliminando...' : 'Eliminar'}
+              </button>
+            )}
           </div>
         </div>
       </div>
