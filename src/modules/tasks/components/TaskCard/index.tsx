@@ -39,7 +39,7 @@ const TaskCard = ({ task, setActiveCardId, setOldColumnId, handleOnDropTask }: P
         }}
         onDragEnd={() => setActiveCardId(0)}
         onClick={handleOpenModalToUpdateTask}
-        className="w-full max-w-[274px] bg-white border py-4 px-6 cursor-pointer shadow rounded-sm hover:scale-105 transition-all"
+        className="w-full max-w-[290px] bg-white border py-4 px-6 cursor-pointer shadow rounded-sm hover:scale-105 transition-all"
       >
         <div className="flex flex-col gap-6">
           <div className="flex justify-start gap-2 items-center">
